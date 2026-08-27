@@ -1,28 +1,616 @@
-.card-flip {
-  perspective: 1000px;
-  width: 300px;
-  height: 200px;
+/* ==================================================
+   CONFIGURACIÓN GENERAL
+   ================================================== */
+
+html {
+  scroll-behavior: smooth;
 }
 
-.card-inner {
+body {
+  margin: 0;
+  background-color: #f8fafc;
+  color: #1e293b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/*
+  Cuando hacemos clic en un enlace como #destinos,
+  evita que el navbar tape el título de la sección.
+*/
+
+section,
+footer {
+  scroll-margin-top: 90px;
+}
+
+
+
+/* ==================================================
+   NAVBAR
+   ================================================== */
+
+.navbar {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.navbar-brand {
+  color: #0f172a;
+}
+
+.nav-link {
+  margin-right: 8px;
+  border-radius: 8px;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+
+  transition: background-color 0.2s ease,
+              color 0.2s ease;
+}
+
+.nav-link:hover {
+  background-color: #eef6f8;
+  color: #0e7490;
+}
+
+
+
+/* ==================================================
+   HERO
+   ================================================== */
+
+.hero-section {
+  padding: 90px 20px 65px;
+}
+
+.hero-section .container {
+  max-width: 850px;
+}
+
+.hero-label,
+.section-label {
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+  color: #0e7490;
+}
+
+.hero-section h1 {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+}
+
+.hero-description {
+  max-width: 700px;
+  margin: 0 auto 30px;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #64748b;
+}
+
+
+
+/* ==================================================
+   BOTONES
+   ================================================== */
+
+.btn-primary {
+  background-color: #0e7490;
+  border-color: #0e7490;
+}
+
+.btn-primary:hover {
+  background-color: #155e75;
+  border-color: #155e75;
+}
+
+.btn-outline-primary {
+  color: #0e7490;
+  border-color: #0e7490;
+}
+
+.btn-outline-primary:hover {
+  background-color: #0e7490;
+  border-color: #0e7490;
+}
+
+
+
+/* ==================================================
+   CARRUSEL
+   ================================================== */
+
+.carousel-section {
+  padding-bottom: 80px;
+}
+
+#carouselViajes {
+  max-width: 1150px;
+  margin: auto;
+}
+
+
+/*
+  Colocamos las tres imágenes horizontalmente.
+*/
+
+.carousel-preview-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  min-height: 520px;
+}
+
+
+/*
+  Imagen principal
+*/
+
+.carousel-main-image {
+  width: 54%;
+  height: 500px;
+
+  object-fit: cover;
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 15px 40px rgba(15, 23, 42, 0.14);
+}
+
+
+/*
+  Imágenes de preview izquierda y derecha
+*/
+
+.carousel-side-image {
+  width: 20%;
+  height: 370px;
+
+  object-fit: cover;
+
+  border-radius: 18px;
+
+  opacity: 0.45;
+
+  transform: scale(0.92);
+
+  filter: saturate(70%);
+}
+
+
+/*
+  Ajustamos los indicadores inferiores.
+*/
+
+.carousel-indicators {
+  margin-bottom: -35px;
+}
+
+.carousel-indicators [data-bs-target] {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+
+/*
+  Flechas
+*/
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 8%;
+}
+
+
+
+/* ==================================================
+   SECCIONES
+   ================================================== */
+
+.page-section {
+  padding: 90px 0;
+}
+
+.section-heading {
+  max-width: 720px;
+  margin-bottom: 45px;
+}
+
+.section-heading h2 {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.section-heading > p:last-child {
+  color: #64748b;
+  line-height: 1.8;
+}
+
+
+
+/* ==================================================
+   CARDS DE DESTINOS
+   ================================================== */
+
+/*
+  perspective crea la sensación de profundidad
+  necesaria para el efecto 3D.
+*/
+
+.travel-card {
+  height: 450px;
+
+  perspective: 1200px;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    filter 0.25s ease;
+}
+
+
+/*
+  Cuando colocamos el mouse encima,
+  levantamos ligeramente la tarjeta.
+*/
+
+.travel-card:hover {
+  transform: translateY(-7px);
+
+  filter:
+    drop-shadow(0 15px 15px rgba(15, 23, 42, 0.12));
+}
+
+
+/*
+  Esta parte contiene frente y reverso.
+*/
+
+.travel-card-inner {
   position: relative;
+
   width: 100%;
   height: 100%;
-  transition: transform 0.8s;
+
+  transition: transform 0.7s ease;
+
   transform-style: preserve-3d;
 }
 
-.card-flip:hover .card-inner {
+
+/*
+  JavaScript agrega la clase is-flipped.
+*/
+
+.travel-card.is-flipped .travel-card-inner {
   transform: rotateY(180deg);
 }
 
-.card-front, .card-back {
+
+/*
+  Frente y reverso comparten estas propiedades.
+*/
+
+.travel-card-face {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+
+  overflow: hidden;
+
+  border-radius: 22px;
+
+  background-color: white;
+
   backface-visibility: hidden;
+
+  -webkit-backface-visibility: hidden;
+
+  border: 1px solid #e2e8f0;
 }
 
-.card-back {
+
+/*
+  El reverso comienza volteado.
+*/
+
+.travel-card-back {
   transform: rotateY(180deg);
+}
+
+
+.travel-card-face img {
+  width: 100%;
+  height: 230px;
+
+  object-fit: cover;
+}
+
+
+.travel-card-content {
+  padding: 24px;
+}
+
+
+.travel-card-content h3 {
+  font-size: 1.45rem;
+  margin-top: 10px;
+}
+
+
+.travel-card-content p {
+  color: #64748b;
+
+  line-height: 1.6;
+}
+
+
+.travel-card-content small {
+  color: #0e7490;
+  font-weight: bold;
+}
+
+
+.destination-tag {
+  display: inline-block;
+
+  padding: 5px 11px;
+
+  background-color: #ecfeff;
+
+  color: #0e7490;
+
+  border-radius: 50px;
+
+  font-size: 0.75rem;
+
+  font-weight: bold;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+}
+
+
+
+/* ==================================================
+   RECOMENDACIONES
+   ================================================== */
+
+.recommendations-section {
+  background-color: white;
+}
+
+
+.recommendation-card {
+  height: 100%;
+
+  padding: 30px;
+
+  background-color: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 20px;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.recommendation-card:hover {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 15px 35px rgba(15, 23, 42, 0.08);
+}
+
+
+.recommendation-icon {
+  font-size: 2.8rem;
+
+  margin-bottom: 15px;
+}
+
+
+.recommendation-badge {
+  display: inline-block;
+
+  margin-bottom: 15px;
+
+  padding: 6px 12px;
+
+  background-color: #cffafe;
+
+  color: #155e75;
+
+  border-radius: 50px;
+
+  font-size: 0.75rem;
+
+  font-weight: bold;
+}
+
+
+.recommendation-card h3 {
+  font-size: 1.3rem;
+}
+
+
+.recommendation-card p {
+  min-height: 120px;
+
+  color: #64748b;
+
+  line-height: 1.7;
+}
+
+
+
+/* ==================================================
+   OPINIONES
+   ================================================== */
+
+.opinion-box {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 40px;
+
+  padding: 45px;
+
+  border-radius: 24px;
+
+  background-color: #0f172a;
+
+  color: white;
+}
+
+
+.opinion-box p:not(.section-label) {
+  color: #cbd5e1;
+}
+
+
+.review-card:empty {
+  display: none;
+}
+
+
+.review-card {
+  max-width: 600px;
+
+  padding: 25px;
+
+  background-color: white;
+
+  border-radius: 18px;
+
+  border: 1px solid #e2e8f0;
+
+  box-shadow:
+    0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+
+
+/* ==================================================
+   FOOTER / CONTACTO
+   ================================================== */
+
+.footer-section {
+  padding: 70px 20px;
+
+  background-color: #0f172a;
+
+  color: white;
+}
+
+
+.footer-section p {
+  color: #94a3b8;
+}
+
+
+.contact-links {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 30px;
+
+  margin: 30px 0;
+}
+
+
+.contact-links a {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 1.1rem;
+
+  transition: transform 0.2s ease;
+}
+
+
+.contact-links a:hover {
+  transform: translateY(-3px);
+}
+
+
+.contact-links i {
+  font-size: 1.5rem;
+}
+
+
+.footer-small {
+  font-size: 0.85rem;
+}
+
+
+
+/* ==================================================
+   RESPONSIVE DESIGN
+   TABLETS Y TELÉFONOS
+   ================================================== */
+
+@media (max-width: 768px) {
+
+  /*
+    En teléfono quitamos los previews laterales
+    para no saturar la pantalla.
+  */
+
+  .carousel-side-image {
+    display: none;
+  }
+
+
+  .carousel-main-image {
+    width: 88%;
+    height: 430px;
+  }
+
+
+  .carousel-preview-row {
+    min-height: 450px;
+  }
+
+
+  .travel-card {
+    height: 480px;
+  }
+
+
+  .opinion-box {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+
+  .contact-links {
+    flex-direction: column;
+
+    align-items: center;
+  }
+
 }
